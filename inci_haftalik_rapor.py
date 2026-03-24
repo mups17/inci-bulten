@@ -12,7 +12,10 @@
 import subprocess, sys
 def pip(*a): subprocess.check_call([sys.executable,"-m","pip","install","-q",*a])
 print("📦 Paketler yükleniyor...")
-pip("feedparser","beautifulsoup4","requests","python-dateutil","sentence-transformers","deep-translator")
+pip("numpy<2")
+pip("feedparser","beautifulsoup4","requests","python-dateutil","deep-translator")
+pip("torch==2.2.2+cpu","torchvision==0.17.2+cpu","--index-url","https://download.pytorch.org/whl/cpu")
+pip("sentence-transformers==2.2.2")
 print("✅ Hazır.\n")
 
 # ══════════════════════════════════════════════════
