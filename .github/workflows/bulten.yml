@@ -3,7 +3,7 @@ name: İnci Holding Haftalık Bülten
 on:
   schedule:
     - cron: "0 5 * * 1"   # Her Pazartesi 05:00 UTC (08:00 TR)
-  workflow_dispatch:        # Elle de tetiklenebilir (Actions sekmesinden "Run workflow")
+  workflow_dispatch:
 
 jobs:
   build:
@@ -25,10 +25,12 @@ jobs:
       - name: Bağımlılıkları yükle
         run: |
           pip install --upgrade pip
+          pip install "numpy<2"
           pip install torch==2.2.2+cpu torchvision==0.17.2+cpu \
             --index-url https://download.pytorch.org/whl/cpu
-          pip install feedparser beautifulsoup4 requests python-dateutil \
-            sentence-transformers deep-translator
+          pip install "sentence-transformers==2.2.2" \
+            feedparser beautifulsoup4 requests python-dateutil \
+            deep-translator
 
       - name: Bülteni üret
         env:
