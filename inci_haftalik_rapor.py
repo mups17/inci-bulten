@@ -161,7 +161,7 @@ def fetch_rss(max_per=18):
 # ══════════════════════════════════════════════════
 #  4. NLP ANALİZİ
 # ══════════════════════════════════════════════════
-def run_nlp(items, threshold=57.0):
+def run_nlp(items, threshold=54.0):
     print("🧠 NLP modeli yükleniyor...")
     dev   = "cuda" if torch.cuda.is_available() else "cpu"
     model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2", device=dev)
@@ -201,7 +201,7 @@ def run_nlp(items, threshold=57.0):
         if ng >= raw*0.70 or LISTICLE_RE.match(item.get("title","")):
             it.update({"status":"trash","score":0,"sector":"","color":"#444","kw":"",
                        "sectors":[],"sector_colors":{}})
-        elif sem < 56:
+        elif sem < 53:
             it.update({"status":"unmatched","score":round(sem,1),"sector":"","color":"#444","kw":"",
                        "sectors":[],"sector_colors":{}})
         else:
