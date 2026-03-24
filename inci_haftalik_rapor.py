@@ -13,15 +13,15 @@ import subprocess, sys
 def pip(*a): subprocess.check_call([sys.executable,"-m","pip","install","-q",*a])
 print("📦 Paketler yükleniyor...")
 pip("numpy<2")
-pip("huggingface_hub==0.20.3")
 pip("feedparser","beautifulsoup4","requests","python-dateutil","deep-translator")
 pip("torch==2.3.0+cpu","--index-url","https://download.pytorch.org/whl/cpu")
-pip("sentence-transformers==2.6.1")
+pip("sentence-transformers==3.0.1")
 print("✅ Hazır.\n")
 
 # ══════════════════════════════════════════════════
 #  1. MAİL AYARLARI  ← BURAYA GİR
 # ══════════════════════════════════════════════════
+import os as _os
 CONFIG = {
     "smtp_user":     "bulten@inceholding.com",
     "smtp_password": "xxxx xxxx xxxx xxxx",
@@ -30,7 +30,7 @@ CONFIG = {
         "yonetici2@inceholding.com",
     ],
     "save_html": True,
-    "output_dir": "/content/exports",
+    "output_dir": "/content/exports" if not _os.getenv("GITHUB_ACTIONS") else "docs",
 }
 
 # ══════════════════════════════════════════════════
