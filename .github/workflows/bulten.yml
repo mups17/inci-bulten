@@ -2,7 +2,7 @@ name: İnci Holding Haftalık Bülten
 
 on:
   schedule:
-    - cron: "0 5 * * 1"   # Her Pazartesi 05:00 UTC (08:00 TR)
+    - cron: "0 5 * * 1"
   workflow_dispatch:
 
 jobs:
@@ -25,10 +25,10 @@ jobs:
       - name: Bağımlılıkları yükle
         run: |
           pip install --upgrade pip
-          pip install "numpy<2"
-          pip install torch==2.2.2+cpu torchvision==0.17.2+cpu \
+          pip install "numpy<2" "huggingface_hub==0.20.3"
+          pip install torch==2.3.0+cpu \
             --index-url https://download.pytorch.org/whl/cpu
-          pip install "sentence-transformers==2.2.2" \
+          pip install "sentence-transformers==2.6.1" \
             feedparser beautifulsoup4 requests python-dateutil \
             deep-translator
 
@@ -38,7 +38,7 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
         run: python inci_haftalik_rapor.py
 
-      - name: docs/ değişikliklerini commit et
+      - name: docs/ commit et
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
