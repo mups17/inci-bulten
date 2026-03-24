@@ -2,9 +2,9 @@ name: İnci Holding Haftalık Bülten
 
 on:
   schedule:
-    - cron: "0 5 * * 1"
+    - cron: "0 9 * * *"   
   workflow_dispatch:
-
+ 
 permissions:
   contents: write
 
