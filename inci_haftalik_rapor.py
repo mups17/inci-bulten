@@ -161,7 +161,7 @@ def fetch_rss(max_per=18):
 # ══════════════════════════════════════════════════
 #  4. NLP ANALİZİ
 # ══════════════════════════════════════════════════
-def run_nlp(items, threshold=54.0):
+def run_nlp(items, threshold=50.0):
     print("🧠 NLP modeli yükleniyor...")
     dev   = "cuda" if torch.cuda.is_available() else "cpu"
     model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2", device=dev)
@@ -187,7 +187,7 @@ def run_nlp(items, threshold=54.0):
     ne    = model.encode(texts, convert_to_tensor=True, show_progress_bar=False)
     skw   = util.cos_sim(ne, ekw); ssec = util.cos_sim(ne, esec); sneg = util.cos_sim(ne, eneg)
     mx,_  = torch.max(torch.stack([skw,ssec]), dim=0)
-    MULTI_THRESH = 50.0   # ikincil sektör eşiği
+    MULTI_THRESH = 62.0   # ikincil sektör için yüksek eşik — keyword hit + iyi skor şart
     out   = []
     for idx, item in enumerate(items):
         it  = dict(item)
@@ -201,7 +201,7 @@ def run_nlp(items, threshold=54.0):
         if ng >= raw*0.70 or LISTICLE_RE.match(item.get("title","")):
             it.update({"status":"trash","score":0,"sector":"","color":"#444","kw":"",
                        "sectors":[],"sector_colors":{}})
-        elif sem < 53:
+        elif sem < 49:
             it.update({"status":"unmatched","score":round(sem,1),"sector":"","color":"#444","kw":"",
                        "sectors":[],"sector_colors":{}})
         else:
