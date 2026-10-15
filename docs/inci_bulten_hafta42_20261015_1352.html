@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>İnci Holding — Hafta 42 Teknoloji Bülteni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Palette — sıcak koyu, kırmızı aksan */
+  --bg:#0D0B0A;--s1:#131110;--s2:#1A1816;--s3:#222;
+  --b1:#242120;--b2:#2E2B29;--b3:#3D3A37;
+  --red:#922020;--red2:#C0392B;--red-dim:rgba(146,32,32,.12);
+  --text:#EDE5DA;--t2:#9C9189;--t3:#5C534C;--t4:#302C2A;
+  --green:#2E9E68;--amber:#D4841A;--blue:#3A7FBF;
+  --num-font:400 13px/1 'Outfit',sans-serif;
+}
+html,body{min-height:100%;background:var(--bg);color:var(--text);
+  font-family:'Outfit',sans-serif;font-size:14px;line-height:1.55;
+  font-weight:400;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+
+/* ── HERO ── */
+.hero{
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 80% 60% at 20% 50%,#1A0A0A 0%,var(--bg) 70%);
+  border-bottom:1px solid var(--b1);padding:52px 64px 44px;
+}
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 75% 30%, rgba(146,32,32,.07) 0%, transparent 55%),
+    repeating-linear-gradient(0deg,transparent,transparent 59px,rgba(146,32,32,.04) 59px,rgba(146,32,32,.04) 60px),
+    repeating-linear-gradient(90deg,transparent,transparent 59px,rgba(146,32,32,.04) 59px,rgba(146,32,32,.04) 60px);
+  pointer-events:none;
+}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap;position:relative;z-index:1}
+.logo-group{display:flex;align-items:center;gap:16px}
+.logo-mark{width:4px;height:52px;background:linear-gradient(180deg,var(--red2),var(--red));border-radius:2px;flex-shrink:0}
+.logo-text{font-family:'Playfair Display',serif;font-size:30px;font-weight:800;letter-spacing:3px;color:#FFF;line-height:1.1}
+.logo-sub{font-size:10px;color:var(--t3);letter-spacing:4px;text-transform:uppercase;margin-top:5px;font-weight:500}
+.hero-meta{text-align:right;position:relative;z-index:1}
+.hero-week{font-family:'Playfair Display',serif;font-size:48px;font-weight:800;font-style:italic;
+  color:rgba(146,32,32,.25);line-height:1;letter-spacing:-1px}
+.hero-date{font-size:11px;color:var(--t3);letter-spacing:2px;text-transform:uppercase;margin-top:4px}
+
+/* ── KPI STRIP ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--b1);border-bottom:1px solid var(--b1)}
+.kpi{background:var(--s1);padding:20px 22px}
+.kpi-lbl{font-size:9px;color:var(--t3);letter-spacing:2.5px;text-transform:uppercase;font-weight:600;margin-bottom:8px}
+.kpi-val{font-size:28px;font-weight:300;line-height:1;letter-spacing:-1px}
+.kpi-sub{font-size:10px;color:var(--t3);margin-top:4px;font-weight:400}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1320px;margin:0 auto;padding:0 36px}
+.main-grid{display:grid;grid-template-columns:1fr 300px;gap:40px;padding:36px 0}
+
+/* ── TABS ── */
+.tab-bar{display:flex;gap:0;border-bottom:1px solid var(--b1);margin-bottom:28px}
+.tbtn{background:none;border:none;color:var(--t3);padding:11px 22px;cursor:pointer;
+  font-family:'Outfit',sans-serif;font-size:12px;font-weight:500;letter-spacing:1px;
+  text-transform:uppercase;border-bottom:2px solid transparent;transition:all .2s}
+.tbtn:hover{color:var(--t2)}
+.tbtn.on{color:var(--text);border-bottom-color:var(--red2)}
+
+/* ── CONTROLS ── */
+.controls{display:flex;gap:10px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
+.ctrl-input{background:var(--s2);border:1px solid var(--b2);color:var(--text);
+  padding:9px 16px;border-radius:4px;font-family:'Outfit',sans-serif;
+  font-size:13px;width:220px;outline:none;transition:border-color .2s;font-weight:400}
+.ctrl-input:focus{border-color:var(--red2)}
+.ctrl-input::placeholder{color:var(--t3)}
+.ctrl-sel{background:var(--s2);border:1px solid var(--b2);color:var(--t2);
+  padding:9px 14px;border-radius:4px;font-family:'Outfit',sans-serif;
+  font-size:13px;outline:none;cursor:pointer}
+.ctrl-sel:focus{border-color:var(--red2)}
+.count-pill{font-size:11px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;font-weight:600;
+  padding:6px 14px;background:var(--s2);border-radius:4px;border:1px solid var(--b1)}
+
+/* ── CARDS ── */
+.card{background:var(--s1);border:1px solid var(--b1);border-radius:6px;
+  margin-bottom:10px;overflow:hidden;transition:border-color .25s,box-shadow .25s;
+  animation:fu .4s ease both}
+.card:hover{border-color:var(--b3);box-shadow:0 4px 24px rgba(0,0,0,.35)}
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card-inner{display:flex;align-items:stretch}
+.card-accent{width:3px;flex-shrink:0;border-radius:6px 0 0 0}
+.card-body{flex:1;padding:16px 20px;min-width:0}
+.card-title{font-size:14px;font-weight:600;line-height:1.5;margin-bottom:7px;
+  display:block;color:var(--text);transition:color .2s}
+.card-title:hover{color:#FFF}
+.card-desc{font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:12px;font-weight:400}
+.card-tags{display:flex;flex-wrap:wrap;gap:5px}
+.comptag{border:1px solid;border-radius:20px;padding:3px 10px;font-size:10px;font-weight:600;
+  background:rgba(255,255,255,.03);letter-spacing:.3px;text-transform:uppercase}
+.kwtag{background:var(--s2);color:var(--t3);border:1px solid var(--b2);
+  border-radius:20px;padding:2px 9px;font-size:10px;font-weight:400}
+.sectag{background:#1C0808;color:#E05252;border:1px solid #3A1010;
+  border-radius:20px;padding:3px 10px;font-size:10px;font-weight:500}
+.trltag{background:#0C1620;color:#5B9FD4;border:1px solid #1A3050;
+  border-radius:20px;padding:3px 10px;font-size:10px;font-weight:500;cursor:help}
+.card-score{flex-shrink:0;padding:16px 20px;text-align:right;border-left:1px solid var(--b1);
+  display:flex;flex-direction:column;align-items:flex-end;justify-content:center;min-width:84px;gap:5px}
+.score-num{font-size:30px;font-weight:300;line-height:1;letter-spacing:-1.5px}
+.score-lbl{font-size:9px;color:var(--t3);letter-spacing:2px;text-transform:uppercase;font-weight:600}
+.score-bar{width:56px;height:2px;background:var(--b2);border-radius:2px;overflow:hidden}
+.score-fill{height:100%;border-radius:2px;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.conf-lbl{font-size:10px;font-weight:500;color:var(--t3)}
+.card-foot{display:flex;justify-content:space-between;padding:8px 20px;
+  background:var(--s2);font-size:11px;color:var(--t3);border-top:1px solid var(--b1);font-weight:400}
+
+.hidden{display:none!important}
+
+/* ── SIDEBAR ── */
+.sidebar{position:sticky;top:20px;align-self:start;display:flex;flex-direction:column;gap:16px}
+.side-box{background:var(--s1);border:1px solid var(--b1);border-radius:6px;overflow:hidden}
+.side-head{padding:13px 18px;border-bottom:1px solid var(--b1);font-size:9px;color:var(--t3);
+  letter-spacing:2.5px;text-transform:uppercase;font-weight:700;
+  display:flex;justify-content:space-between;align-items:center}
+.clear-btn{color:var(--red2);cursor:pointer;font-size:10px;font-weight:500;letter-spacing:.5px;transition:color .2s}
+.clear-btn:hover{color:#E05252}
+.side-body{padding:10px 0}
+.pill-sector-name{font-size:12px;font-weight:500;display:block}
+.pill-companies{font-size:10px;color:var(--t4);display:block;margin-top:2px;font-style:italic}
+.filt-pill{display:flex;align-items:center;justify-content:space-between;
+  padding:8px 16px;cursor:pointer;transition:all .15s;
+  font-size:12px;color:var(--t3);border-left:2px solid transparent}
+.filt-pill:hover{background:var(--s2);color:var(--t2)}
+.filt-pill.on{border-left-color:var(--red2);background:var(--red-dim);color:var(--text);font-weight:500}
+.filt-cnt{font-size:11px;color:var(--t4);font-weight:600}
+.filt-pill.on .filt-cnt{color:var(--t2)}
+
+/* ── CHART BOXES ── */
+.chart-box{padding:16px}
+.kw-row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.kw-label{font-size:11px;color:var(--t2);width:108px;flex-shrink:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:400}
+.kw-track{flex:1;height:3px;background:var(--b2);border-radius:2px;overflow:hidden}
+.kw-fill{height:100%;background:var(--red2);border-radius:2px;transition:width .4s}
+.kw-cnt{font-size:11px;color:var(--t3);font-weight:600;width:20px;text-align:right}
+.donut-wrap{display:flex;align-items:center;gap:16px}
+.donut-svg{width:96px;height:96px;flex-shrink:0}
+.donut-legend{flex:1}
+.donut-leg-row{display:flex;align-items:center;gap:7px;margin-bottom:7px}
+.donut-leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.donut-leg-name{font-size:11px;color:var(--t2);flex:1;font-weight:400}
+.donut-leg-pct{font-size:11px;color:var(--t3);font-weight:600}
+
+/* ── SEKTÖR TABLOSU ── */
+.sector-block{margin-bottom:28px}
+.sector-hdr{display:flex;align-items:center;gap:10px;padding:11px 16px;
+  border-radius:6px 6px 0 0;background:var(--s2);border:1px solid var(--b1);border-bottom:none}
+.sector-hdr-name{font-size:13px;font-weight:600;flex:1;letter-spacing:.2px}
+.sector-badge{border-radius:20px;padding:2px 11px;font-size:11px;font-weight:700;color:#FFF}
+.stbl{width:100%;border-collapse:collapse;font-size:12px;border:1px solid var(--b1);border-top:none;border-radius:0 0 6px 6px;overflow:hidden}
+.stbl th{background:var(--s2);color:var(--t3);padding:8px 12px;text-align:left;font-weight:600;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;border-bottom:1px solid var(--b1)}
+.stbl td{padding:9px 12px;border-bottom:1px solid var(--b1);color:var(--t2)}
+.stbl tr:last-child td{border-bottom:none}
+.stbl tr:hover td{background:var(--s2);color:var(--text)}
+.stbl td a:hover{color:#FFF}
+
+/* ── GÜVENLİK ── */
+.sec-card{background:var(--s1);border:1px solid var(--b2);border-left:3px solid #C0392B;
+  border-radius:6px;padding:14px 18px;margin-bottom:9px}
+.cve-tag{background:#1C0808;color:#E05252;border:1px solid #3A1010;
+  border-radius:20px;padding:2px 10px;font-size:10px;font-weight:600;
+  display:inline-block;margin-bottom:6px;letter-spacing:.5px}
+.sec-title{font-size:13px;font-weight:600;color:var(--text);display:block;margin-bottom:4px}
+.sec-title:hover{color:#FFF}
+.sec-meta{font-size:11px;color:var(--t3);font-weight:400}
+
+/* ── BÜLTEN DIŞI ── */
+.um-row{display:flex;align-items:center;gap:10px;padding:10px 18px;border-bottom:1px solid var(--b1)}
+.um-row:last-child{border-bottom:none}
+.um-title{flex:1;font-size:12px;color:var(--t2);font-weight:400}
+.um-title:hover{color:var(--text)}
+.um-src{font-size:10px;color:var(--t4);white-space:nowrap;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.empty{text-align:center;padding:80px 20px;color:var(--t4)}
+.empty-icon{font-size:36px;opacity:.25;margin-bottom:14px}
+
+/* ── FOOTER ── */
+.footer{border-top:1px solid var(--b1);padding:22px 36px;display:flex;justify-content:space-between;
+  align-items:center;background:var(--s1);margin-top:48px}
+.footer-l{font-size:11px;color:var(--t4);font-weight:500;letter-spacing:.3px}
+.footer-r{font-size:11px;color:var(--t4)}
+
+@media(max-width:900px){
+  .main-grid{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .kpi-grid{grid-template-columns:repeat(3,1fr)}
+  .wrap{padding:0 18px}
+  .hero{padding:36px 22px 32px}
+}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-top">
+    <div class="logo-group">
+      <div class="logo-mark"></div>
+      <div>
+        <div class="logo-text">İNCİ HOLDİNG</div>
+        <div class="logo-sub">STRATEJİK TEKNOLOJİ &amp; İNOVASYON BÜLTENİ</div>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-week">W42</div>
+      <div class="hero-date">15 October 2026</div>
+    </div>
+  </div>
+</div>
+<div class="kpi-grid">
+  <div class="kpi"><div class="kpi-lbl">TARANAN KAYNAK</div><div class="kpi-val" style="color:var(--text)">21</div><div class="kpi-sub">RSS beslemesi</div></div>
+  <div class="kpi"><div class="kpi-lbl">İNCELENEN KAYIT</div><div class="kpi-val" style="color:var(--text)">207</div><div class="kpi-sub">pre-filter geçen</div></div>
+  <div class="kpi"><div class="kpi-lbl">BÜLTENE GİREN</div><div class="kpi-val" style="color:var(--green)">40</div><div class="kpi-sub">NLP onaylı</div></div>
+  <div class="kpi"><div class="kpi-lbl">BÜLTEN DIŞI</div><div class="kpi-val" style="color:var(--amber)">90</div><div class="kpi-sub">temiz ama eşleşmez</div></div>
+  <div class="kpi"><div class="kpi-lbl">ÇÖPE ATILAN</div><div class="kpi-val" style="color:var(--red)">77</div><div class="kpi-sub">B2C / magazin</div></div>
+  <div class="kpi"><div class="kpi-lbl">ORT. UYUM SKORU</div><div class="kpi-val" style="color:var(--text)">53.2</div><div class="kpi-sub">0–100 arası</div></div>
+</div>
+<div class="wrap">
+  <div class="main-grid">
+    <div>
+      <div class="tab-bar">
+        <button class="tbtn on" onclick="switchTab('bulletin',this)">📋 BÜLTEN</button>
+        <button class="tbtn" onclick="switchTab('sectors',this)">🗂 SEKTÖRLER</button>
+        <button class="tbtn" onclick="switchTab('security',this)">🔒 SİBER GÜVENLİK</button>
+        <button class="tbtn" onclick="switchTab('outside',this)">🌍 BÜLTEN DIŞI</button>
+      </div>
+      <div class="controls" id="mainControls">
+        <input class="ctrl-input" type="text" id="searchBox" placeholder="🔍  Ara..." oninput="applyFilters()">
+        <select class="ctrl-sel" id="sortSel" onchange="applyFilters()">
+          <option value="score">Skora Göre</option>
+          <option value="date">Tarihe Göre</option>
+          <option value="source">Kaynağa Göre</option>
+        </select>
+        <span class="count-pill" id="countPill">40 haber</span>
+      </div>
+      <div id="pane-bulletin"><div id="cards-container">
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="52.6" data-date="2026-10-15" data-src="TechCrunch">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://techcrunch.com/2026/10/14/ricursive-intelligence-is-betting-on-ai-designed-chips-to-help-solve-the-compute-crisis/" target="_blank">Ricursive Intelligence is betting on AI-designed chips to help solve the compute crisis</a>
+              <p class="card-desc">The founders detailed how their startup is developing AI that can design chips, learn from each iteration, and improve subsequent designs, all with the goal of automating and accelerating the chip design process.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">52</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:52.6%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>TechCrunch · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="50.6" data-date="2026-10-15" data-src="TechCrunch">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://techcrunch.com/2026/10/14/meet-the-five-companies-competing-in-the-startup-battlefield-finals-at-disrupt-2026/" target="_blank">Meet the five companies competing in the Startup Battlefield finals at Disrupt 2026</a>
+              <p class="card-desc">It’s time to unveil the five companies that will be competing in the Startup Battlefield finals.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">50</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:50.6%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>TechCrunch · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Enerji" data-sectors="Enerji" data-score="56.4" data-date="2026-10-14" data-src="TechCrunch">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#27AE60"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://techcrunch.com/2026/10/14/ambrosia-energy-will-build-a-10-gwh-factory-in-texas-to-make-batteries-for-off-grid-data-centers/" target="_blank">Ambrosia Energy will build a 10 GWh factory in Texas to make batteries for off-grid data centers</a>
+              <p class="card-desc">Startup Ambrosia Energy will build a massive factory to crank out batteries to augment solar panels, creating a round-the-clock clean power plant.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#F39C12;color:#F39C12">Enerji</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">56</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:56.4%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>TechCrunch · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Enerji" data-sectors="Enerji" data-score="52.2" data-date="2026-10-15" data-src="Wired">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#F39C12"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://www.wired.com/story/should-you-get-permanent-outdoor-lights/" target="_blank">The Best Permanent Outdoor Lights (2026): Govee, Eufy, Cync</a>
+              <p class="card-desc">Permanent eave lights that attach to the exterior of your home are becoming more popular. But are they worth the effort and cost?</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#F39C12;color:#F39C12">Enerji</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">52</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:52.2%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Wired · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Enerji" data-sectors="Enerji" data-score="52.5" data-date="2026-10-14" data-src="MIT Tech Review">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#27AE60"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://www.technologyreview.com/2026/10/14/1146452/the-download-military-fake-blood-future-batteries/" target="_blank">The Download: faking blood and the future of batteries</a>
+              <p class="card-desc">This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. The US military’s race to make fake blood In February 2007, a US military helicopter carrying blood to a field hospital was shot down in Iraq,...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#27AE60;color:#27AE60">Enerji</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">52</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:52.5%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>MIT Tech Review · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="50.7" data-date="2026-10-13" data-src="MIT Tech Review">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8B1A1A"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://www.technologyreview.com/2026/10/13/1146382/the-download-open-models-trade-offs-geothermal-power/" target="_blank">The Download: open model trade-offs and geothermal power’s promise</a>
+              <p class="card-desc">This is today’s edition of The Download, our weekday newsletter that provides a daily dose of what’s going on in the world of technology. Open models have real benefits. Do they outweigh the risks? Anthropic recently released a report arguing that a powerful new model released by...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8B1A1A;color:#8B1A1A">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">50</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:50.7%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>MIT Tech Review · Global</span>
+            <span>2026-10-13</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Otomotiv" data-sectors="Otomotiv" data-score="51.2" data-date="2026-10-15" data-src="Electrek">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#C0392B"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://electrek.co/2026/10/15/slate-opens-first-ever-test-drive-and-experience-center-in-chicago/" target="_blank">Slate Auto opens first ever test drive and experience center in Chicago</a>
+              <p class="card-desc">Jeff Bezos-backed electric truck startup Slate Auto opened the doors to its first-ever brick-and-mortar “experience center” in Chicago’s Near West Side, offering midwest fleet buyers and automotive journalists (Hi!) their first real, up-close look at what promises to be the most ...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#C0392B;color:#C0392B">Otomotiv</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">51</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:51.2%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Electrek · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Enerji" data-sectors="Enerji" data-score="51.6" data-date="2026-10-14" data-src="Electrek">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#27AE60"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://electrek.co/2026/10/14/apple-and-schneiders-new-smart-thermostat-could-help-cut-your-electric-bill/" target="_blank">Apple and Schneider’s new smart thermostat could help cut your electric bill</a>
+              <p class="card-desc">A new smart thermostat from Apple and Schneider Electric could soon use your iPhone to figure out when you’re home – and help move heating and cooling to times when electricity is cleaner and/or cheaper. more…</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#27AE60;color:#27AE60">Enerji</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">51</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:51.6%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Electrek · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Enerji" data-sectors="Enerji" data-score="51.4" data-date="2026-10-14" data-src="Electrek">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#2ECC71"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://electrek.co/2026/10/14/revolution-wind-is-powering-new-england-and-trump-is-attacking-it-again/" target="_blank">Revolution Wind is powering New England, and Trump is attacking it again</a>
+              <p class="card-desc">Revolution Wind is already sending electricity to New England, and all 65 turbines are installed. Now the Trump administration is challenging the federal approval that allowed the offshore wind farm to be built. Again. Yes, really. more…</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#2ECC71;color:#2ECC71">Enerji</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">51</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:51.4%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Electrek · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Enerji" data-sectors="Enerji" data-score="59.0" data-date="2026-10-14" data-src="Electrek">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#27AE60"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://electrek.co/2026/10/14/prinoth-is-getting-charged-up-for-winter-with-a-little-help-from-scania/" target="_blank">Prinoth is getting charged up for winter with a little help from Scania</a>
+              <p class="card-desc">The winter equipment experts at Prinoth are partnering with Swedish trucking group SCANIA on a pair of new, battery-electric snow groomers that are ready to hit Europe’s ski slopes with up to 624 kWh of battery power all winter long. more…</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#27AE60;color:#27AE60">Enerji</span>
+                <span class="kwtag">battery</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">59</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:59.0%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Electrek · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Otomotiv" data-sectors="Otomotiv" data-score="50.0" data-date="2026-10-14" data-src="Electrek">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#C0392B"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://electrek.co/2026/10/14/volvo-delays-ex60-ev-deliveries-us/" target="_blank">Volvo’s new midsize electric SUV is here, but it may be hard to get your hands on one</a>
+              <p class="card-desc">Volvo is already calling the EX60 a “game changer” as its highest-range, fastest-charging EV to date. After delaying US deliveries, Volvo’s new midsize electric SUV will remain limited, at least for now. more…</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#C0392B;color:#C0392B">Otomotiv</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">50</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:50.0%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Electrek · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="52.0" data-date="2026-10-14" data-src="The Hacker News">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8B1A1A"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://thehackernews.com/2026/10/cisa-urges-immediate-ivanti-connect.html" target="_blank">CISA Urges Immediate Ivanti Connect Secure Updates as Honeypots Log 105 Exploit Attempts</a>
+              <p class="card-desc">The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Tuesday urged organizations to take steps to immediately update their Ivanti Connect Secure (ICS) appliances and deployments to the latest version following the disclosure of an actively exploited vulnerability. ...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8B1A1A;color:#8B1A1A">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span><span class="sectag">🔒 Güvenlik</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">52</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:52.0%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>The Hacker News · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Enerji" data-sectors="Enerji" data-score="52.8" data-date="2026-10-14" data-src="CleanTechnica">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#2ECC71"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://cleantechnica.com/2026/10/14/green-gsm-taxi-service-now-available-in-los-angeles/" target="_blank">Green GSM Taxi Service Now Available in Los Angeles</a>
+              <p class="card-desc">PUBLIC transportation company Green SM has entered North America with the official launch of an all-electric taxi service in Los Angeles, California. The move turns the United States into the ninth market for the Vietnamese transport provider. The platform operates entirely on Vi...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#27AE60;color:#27AE60">Enerji</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">52</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:52.8%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>CleanTechnica · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Enerji" data-sectors="Enerji" data-score="57.8" data-date="2026-10-14" data-src="CleanTechnica">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#27AE60"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://cleantechnica.com/2026/10/14/wireless-ev-charing-honda-electrification-transportation/" target="_blank">Another Sign That Gasmobiles Are Toast: Honda Adds Muscle To The Wireless EV Charging Movement</a>
+              <p class="card-desc">Honda has joined the race to develop wireless EV charging systems that enable drivers to recharge their batteries while on the road, adding a new layer of convenience to the EV experience. The post Another Sign That Gasmobiles Are Toast: Honda Adds Muscle To The Wireless EV Charg...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#27AE60;color:#27AE60">Enerji</span>
+                <span class="kwtag">ev charging</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">57</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:57.8%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>CleanTechnica · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Enerji" data-sectors="Enerji" data-score="65.8" data-date="2026-10-14" data-src="CleanTechnica">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#F39C12"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://cleantechnica.com/2026/10/14/energy-storage-sunrun-distributed-us-rooftop-solar/" target="_blank">The People Speak: We Want Energy Storage, Not Data Centers</a>
+              <p class="card-desc">The leading US rooftop solar firm Sunrun has made a sharp pivot into the energy storage field, enabling more households to participate in money-saving virtual power plants whether or not they have rooftop solar panels. The post The People Speak: We Want Energy Storage, Not Data C...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#F39C12;color:#F39C12">Enerji</span>
+                <span class="kwtag">solar</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#F39C12">65</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:65.8%;background:#F39C12"></div></div>
+              <div class="conf-lbl" style="color:#F39C12">Yüksek</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>CleanTechnica · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Otomotiv" data-sectors="Otomotiv" data-score="51.0" data-date="2026-10-14" data-src="CleanTechnica">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#C0392B"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://cleantechnica.com/2026/10/13/the-new-bmw-ix4/" target="_blank">The New BMW iX4</a>
+              <p class="card-desc">Extrovert, unmistakable and fully electric, the new BMW iX4 is the next Neue Klasse model from BMW. Like its Neue Klasse siblings, the new Sports Utility Vehicle in coupé form represents a technological leap forward into a new era. At the same time, the BMW iX4 showcases its own,...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#C0392B;color:#C0392B">Otomotiv</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">51</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:51.0%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>CleanTechnica · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Otomotiv" data-sectors="Otomotiv" data-score="50.5" data-date="2026-10-14" data-src="CleanTechnica">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#C0392B"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://cleantechnica.com/2026/10/13/the-new-bmw-ix3-m60-xdrive/" target="_blank">The New BMW iX3 M60 xDrive</a>
+              <p class="card-desc">BMW presents the most powerful variant yet of its Neue Klasse Sports Utility Vehicle. The new BMW iX3 M60 xDrive is equipped with an electric motor at each axle, produces maximum output of 450 kW/612 hp1 and accelerates from 0 to 100 km/h (62 mph) in 3.9 seconds1. As well ... [co...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#C0392B;color:#C0392B">Otomotiv</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">50</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:50.5%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>CleanTechnica · Global</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="51.0" data-date="2026-10-15" data-src="Webrazzi">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://webrazzi.com/2026/10/15/modal-15-75-milyar-dolar-degerleme-uzerinden-750-milyon-dolar-yatirim-aldi/" target="_blank">Modal, 15,75 milyar dolar değerleme üzerinden 750 milyon dolar yatırım aldı</a>
+              <p class="card-desc">Yapay zeka uygulamalarının çalışması için gerekli altyapıyı geliştiren Modal, 750 milyon dolar yatırım aldı. Şirketin 750 milyon dolarlık D serisi yatırım turuna Accel liderlik etti. ABD merkezli Moda...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">51</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:51.0%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Webrazzi · Türkiye</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="51.7" data-date="2026-10-14" data-src="Webrazzi">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://webrazzi.com/2026/10/14/yapay-zeka-girisimi-scuba-34-milyon-dolar-yatirim-aldi/" target="_blank">Yapay zeka girişimi Scuba, 34 milyon dolar yatırım aldı</a>
+              <p class="card-desc">Yapay zeka girişimi Scuba, toplamda 34 milyon dolar yatırım aldı. Şirketin tohum öncesi yatırım turu Accel liderliğinde, tohum yatırım turu ise Accel ve IVP eş liderliğinde gerçekleşti. ABD merkezli S...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">51</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:51.7%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Webrazzi · Türkiye</span>
+            <span>2026-10-14</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="52.7" data-date="2026-10-12" data-src="eGirişim">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://egirisim.com/2026/10/12/ise-alim-sureclerini-ilandan-teklife-yapay-zekayla-bulusturan-girisim-hireall/" target="_blank">İşe alım süreçlerini ilandan teklife yapay zekayla buluşturan girişim: Hireall</a>
+              <p class="card-desc">Yapay zekâ destekli işe alım platformu Hireall, şirketlerin işe alım süreçlerini ilanın hazırlanmasından aday değerlendirmeye, mülakattan teklif aşamasına kadar tek sistem üzerinden yönetebilmesi amacıyla geliştirildi. Youthall’un 1.200’ü aşkın şirketle yürüttüğü çalışmalar sıras...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">52</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:52.7%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>eGirişim · Türkiye</span>
+            <span>2026-10-12</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="53.5" data-date="2026-10-12" data-src="eGirişim">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://egirisim.com/2026/10/12/borusan-ventures-magenticin-18-milyon-dolarlik-yatirim-turuna-katildi/" target="_blank">Borusan Ventures, Magentic’in 18 milyon dolarlık yatırım turuna katıldı</a>
+              <p class="card-desc">Borusan Grubu’nun kurumsal girişim sermayesi şirketi Borusan Ventures, yapay zekâ ile fiziksel dünyanın kesişiminde faaliyet gösteren teknoloji girişimlerine yönelik yatırımlarını Magentic ile sürdürüyor. Magentic’in, Felicis liderliğinde gerçekleşen 18 milyon dolarlık Seri A yat...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8B1A1A;color:#8B1A1A">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">53</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:53.5%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>eGirişim · Türkiye</span>
+            <span>2026-10-12</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="52.5" data-date="2026-10-09" data-src="eGirişim">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://egirisim.com/2026/10/09/claudedan-girisimcilere-45-bin-dolara-varan-destek-ucretsiz-araclar-krediler-ve-indirimler/" target="_blank">Claude’dan girişimcilere 45 bin dolara varan destek: Ücretsiz araçlar, krediler ve indirimler</a>
+              <p class="card-desc">Anthropic, Claude Startups programıyla girişimcilere yapay zeka araçlarında ücretsiz kullanım, kredi ve indirim fırsatları sunuyor. Program kapsamında farklı teknoloji şirketlerinin sağladığı avantajların toplam değeri 45 bin dolara kadar ulaşıyor. Claude Startup Stack içerisinde...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">52</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:52.5%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>eGirişim · Türkiye</span>
+            <span>2026-10-09</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="55.0" data-date="2026-10-09" data-src="eGirişim">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8B1A1A"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://egirisim.com/2026/10/09/egaranti-seri-a-oncesi-turda-1-1-milyon-dolar-yatirim-aldi/" target="_blank">egaranti, Seri A öncesi turda 1.1 milyon dolar yatırım aldı</a>
+              <p class="card-desc">Türkiye ve Özbekistan’da faaliyet gösteren, markalara garanti belgesi, ek garanti ve satış sonrası süreçleri için dijital altyapı sunan yerli girişim egaranti, Seri A öncesi yatırım turunda 1.1 milyon dolar yatırım aldı. Türkiye’den kurumsal yatırımcılar, bir sigorta şirketi ve ü...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8B1A1A;color:#8B1A1A">Girişim</span>
+                <span class="kwtag">kurumsal girişim</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">55</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:55.0%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>eGirişim · Türkiye</span>
+            <span>2026-10-09</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Enerji" data-sectors="Enerji" data-score="57.3" data-date="2026-10-08" data-src="eGirişim">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#F39C12"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://egirisim.com/2026/10/08/kalyon-pv-yeni-gunes-teknolojileri-fabrikasini-abdde-kuruyor/" target="_blank">Kalyon PV, yeni güneş teknolojileri fabrikasını ABD’de kuruyor</a>
+              <p class="card-desc">Güneş teknolojileri merkezi Kalyon PV, Ankara’daki entegre üretim tesisinde düzenlediği yatırımcı toplantısında ABD yatırımının yanı sıra şirketin ulusal ve uluslararası büyüme stratejisini, üretim ve teknoloji kabiliyetlerini, finansal görünümünü ve gelecek hedeflerini yatırımcı...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#F39C12;color:#F39C12">Enerji</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">57</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:57.3%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>eGirişim · Türkiye</span>
+            <span>2026-10-08</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="54.2" data-date="2026-10-15" data-src="BT Haber">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8B1A1A"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://bthaber.com/haberler/siber-guvenlikte-teknik-uzmanligi-odagina-aliyor" target="_blank">Siber güvenlikte teknik uzmanlığı odağına alıyor</a>
+              <p class="card-desc">Secude, siber güvenlik pazarında katma değerli distribütörlük anlayışıyla ayrışıyor. İş ortaklarına ve kurumlara teknik uzmanlık desteği sunan şirket, veri güvenliği ve e-posta korumasından yapay zekâ güvenliğine uzanan çözümleriyle 2026 ve sonrasında büyümesini sürdürmeyi hedefl...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8B1A1A;color:#8B1A1A">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span><span class="sectag">🔒 Güvenlik</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">54</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:54.2%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>BT Haber · Türkiye</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="53.7" data-date="2026-10-15" data-src="BT Haber">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8B1A1A"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://bthaber.com/haberler/yapay-zeka-odakli-satin-alma-adimi" target="_blank">Yapay zeka odaklı satın alma adımı</a>
+              <p class="card-desc">Kritik dijital altyapı alanında dünyanın önde gelen şirketlerinden Vertiv Holdings Co, yüksek yoğunluklu, sıvı soğutmalı veri merkezleri ve diğer uygulamalar için akışkan yönetimi, devreye alma ve yük testi servisleri sunan Avrupa merkezli King Environmental Services Ltd.'yi (KES...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8B1A1A;color:#8B1A1A">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">53</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:53.7%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>BT Haber · Türkiye</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="50.8" data-date="2026-10-15" data-src="BT Haber">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://bthaber.com/haberler/yapay-zeka-girisimi-sayisi-buyuyor" target="_blank">Yapay zeka girişimi sayısı büyüyor</a>
+              <p class="card-desc">Türkiye Yapay Zeka İnisiyatifi (TRAI), 2017’den bu yana sürdürdüğü Girişim Haritası çalışmasının Ekim 2026 sonuçlarını açıkladı.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">50</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:50.8%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>BT Haber · Türkiye</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="55.1" data-date="2026-10-15" data-src="BT Haber">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://bthaber.com/haberler/hedef-yapay-zeka-temelli-kuresel-buyume" target="_blank">Hedef; yapay zekâ temelli küresel büyüme</a>
+              <p class="card-desc">Yapay zekâ temelli teknoloji şirketi Virgosol, tecrübesinin üzerine inşa ettiği gelecek vizyonunu yansıtan ‘Engineering Confidence’ mottosu ve yeni logosuyla marka kimliğini yeniledi. Yönetilen ve profesyonel hizmetlerle derinleştirdiği uzmanlığını ürünleriyle ölçekleyen şirket, ...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">55</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:55.1%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>BT Haber · Türkiye</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="56.0" data-date="2026-10-15" data-src="BT Haber">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8B1A1A"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://bthaber.com/haberler/kurumsal-oncelik-artik-surdurulebilirlik" target="_blank">Kurumsal öncelik artık sürdürülebilirlik</a>
+              <p class="card-desc">Küresel yönetim danışmanlığı şirketlerinden Bain & Company’nin “Vizyoner CEO’nun Sürdürülebilirlik Rehberi” raporunun dördüncü sayısına göre, özel şirketler ve hükümetler son 10 yılda sürdürülebilir teknolojilere 17 trilyon dolar gibi rekor düzeyde yatırım yaptı.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8B1A1A;color:#8B1A1A">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">56</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:56.0%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>BT Haber · Türkiye</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="52.5" data-date="2026-10-15" data-src="BT Haber">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://bthaber.com/haberler/gayrimenkulun-altyapisi-yapay-zeka-ile-donusuyor" target="_blank">Gayrimenkulün altyapısı yapay zeka ile dönüşüyor</a>
+              <p class="card-desc">2026’da 44,59 milyar dolara ulaşması beklenen küresel PropTech (gayrimenkul teknolojisi) pazarında entegre platformlar öne çıkıyor.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">52</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:52.5%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>BT Haber · Türkiye</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Soğutma" data-sectors="Soğutma" data-score="52.8" data-date="2026-10-15" data-src="BT Haber">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#2980B9"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://bthaber.com/haberler/en-dayanikli-oyun-laptopu-nasil-secilir-govde-mentese-ve-sogutma-olcutleri" target="_blank">En dayanıklı oyun laptopu nasıl seçilir? Gövde, menteşe ve soğutma ölçütleri</a>
+              <p class="card-desc">En dayanıklı oyun laptopunu seçerken başlangıç noktamız, bilgisayarı nerede ve nasıl kullanacağımız olmalı. Her gün çantada taşınan bir cihazda gövde bütünlüğü ve ekran bağlantısı öne çıkarken, uzun oyun oturumlarında soğutma düzeni ve temas edilen yüzeylerin sıcaklığı önem kazan...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#2980B9;color:#2980B9">Soğutma</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">52</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:52.8%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>BT Haber · Türkiye</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="51.1" data-date="2026-10-15" data-src="BT Haber">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8B1A1A"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://bthaber.com/haberler/dijitallesme-ve-yapay-zeka-egemenligi-gucleniyor" target="_blank">Dijitalleşme ve yapay zekâ egemenliği güçleniyor!</a>
+              <p class="card-desc">PwC’nin 53 ülke ve bölgede, 12 farklı eğlence ve medya (E&M) segmentindeki küresel büyümeyi mercek altına alan “Küresel Eğlence ve Medya Sektörüne Bakış 2026-2030” raporu, 2030 yılına kadar sektörde yaratılması beklenen 600 milyar dolarlık yeni gelirin büyük ölçüde dijital ekosis...</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8B1A1A;color:#8B1A1A">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">51</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:51.1%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>BT Haber · Türkiye</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="54.3" data-date="2026-10-15" data-src="BT Haber">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://bthaber.com/haberler/gizli-maliyetler-butceleri-sarsabiliyor" target="_blank">Gizli maliyetler bütçeleri sarsabiliyor</a>
+              <p class="card-desc">Yapay zekâ, şirketlerin dijital dönüşüm ve büyüme stratejilerinin merkezinde yer alırken, kurumların gündeminde artık yalnızca bu teknolojilere ne kadar yatırım yapılacağı değil, yapılan yatırımın ne kadar değer ürettiği de bulunuyor.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">54</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:54.3%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>BT Haber · Türkiye</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Lojistik" data-sectors="Lojistik" data-score="58.8" data-date="2026-10-15" data-src="Supply Chain 247">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8E44AD"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://www.supplychain247.com/article/overlooked-supply-chain-ai-issues-o9-roundtable" target="_blank">Roundtable: What’s Flying Under the Radar in Supply Chain?</a>
+              <p class="card-desc">At o9’s Chicago event last month, five executives discussed what gets overlooked in supply chain AI, from employee training to learning from decisions.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8E44AD;color:#8E44AD">Lojistik</span>
+                <span class="kwtag">supply chain</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">58</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:58.8%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Supply Chain 247 · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Lojistik" data-sectors="Lojistik" data-score="52.2" data-date="2026-10-15" data-src="Supply Chain 247">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8E44AD"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://www.supplychain247.com/article/walmart-warehouse-automation-packaging-robot-costs" target="_blank">Report: Walmart’s Shipping Boxes Are Too Tall for Its Warehouse Robots</a>
+              <p class="card-desc">Walmart’s warehouse automation push faces packaging problems, robot repairs, and higher power bills as the retailer expands its rollout.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8E44AD;color:#8E44AD">Lojistik</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">52</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:52.2%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Supply Chain 247 · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Lojistik" data-sectors="Lojistik" data-score="50.6" data-date="2026-10-15" data-src="Supply Chain 247">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8E44AD"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://www.supplychain247.com/paper/how-ready-is-your-warehouse-for-peak-season-demand" target="_blank">How Ready Is Your Warehouse for Peak Season Demand?</a>
+              <p class="card-desc">Assess peak season warehouse readiness across labor, productivity, accuracy, visibility and resilience with a practical checklist, scoring guide and timeline.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8E44AD;color:#8E44AD">Lojistik</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">50</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:50.6%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Supply Chain 247 · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Lojistik" data-sectors="Lojistik" data-score="51.9" data-date="2026-10-15" data-src="Supply Chain 247">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8E44AD"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://www.supplychain247.com/paper/how-can-warehouses-scale-operations-during-peak-season" target="_blank">How Can Warehouses Scale Operations During Peak Season?</a>
+              <p class="card-desc">Explore how warehouse automation helps manage peak season labor shortages, accelerate picking, shorten training, and scale fulfillment capacity with demand.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8E44AD;color:#8E44AD">Lojistik</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">51</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:51.9%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Supply Chain 247 · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Soğutma" data-sectors="Soğutma" data-score="51.1" data-date="2026-10-15" data-src="Supply Chain 247">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#3498DB"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://www.supplychain247.com/article/dhl-six-cold-chain-air-routes-asia" target="_blank">DHL Adds Cold Chain Routes From Cincinnati to Singapore, Tokyo, and Seoul</a>
+              <p class="card-desc">DHL has added six cold-chain air routes connecting the U.S. and Europe to pharmaceutical markets in China, Singapore, Japan and South Korea.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#3498DB;color:#3498DB">Soğutma</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">51</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:51.1%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Supply Chain 247 · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Lojistik" data-sectors="Lojistik" data-score="50.0" data-date="2026-10-15" data-src="Supply Chain 247">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#8E44AD"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://www.supplychain247.com/article/us-container-imports-september-2026-record" target="_blank">China Imports Jump 21% as U.S. Sets a New September Shipping Record</a>
+              <p class="card-desc">U.S. container imports hit a September record of 2.55 million TEUs, led by a 21.2% annual increase in shipments from China, according to Descartes.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#8E44AD;color:#8E44AD">Lojistik</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">50</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:50.0%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Supply Chain 247 · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div>
+        <div class="card" data-sector="Girişim" data-sectors="Girişim" data-score="50.5" data-date="2026-10-15" data-src="Supply Chain 247">
+          <div class="card-inner">
+            <div class="card-accent" style="background:#9B59B6"></div>
+            <div class="card-body">
+              <a class="card-title" href="https://www.supplychain247.com/article/schweitzer-engineering-us-manufacturing-expansion" target="_blank">SEL Plans Three Idaho Factories in $500 Million-Plus U.S. Expansion</a>
+              <p class="card-desc">Schweitzer Engineering Laboratories is expanding factories in four states to make more equipment that protects electric power systems.</p>
+              <div class="card-tags">
+                <span class="comptag" style="border-color:#9B59B6;color:#9B59B6">Girişim</span>
+                <span class="kwtag">Semantik Uyum</span>
+              </div>
+            </div>
+            <div class="card-score">
+              <div class="score-num" style="color:#E74C3C">50</div>
+              <div class="score-lbl">SKOR</div>
+              <div class="score-bar"><div class="score-fill" style="width:50.5%;background:#E74C3C"></div></div>
+              <div class="conf-lbl" style="color:#E74C3C">Orta</div>
+            </div>
+          </div>
+          <div class="card-foot">
+            <span>Supply Chain 247 · Global</span>
+            <span>2026-10-15</span>
+          </div>
+        </div></div></div>
+      <div id="pane-sectors" class="hidden"><div class="sector-block"><div class="sector-hdr" style="border-left:3px solid #C0392B"><span style="font-size:18px">🚗</span><span class="sector-hdr-name">Otomotiv</span><span class="sector-badge" style="background:#C0392B">4</span></div><table class="stbl"><tr><th>#</th><th>Başlık</th><th>Kaynak</th><th>Skor</th><th>Tarih</th></tr><tr><td style="color:var(--t4)">1</td><td><a href="https://electrek.co/2026/10/15/slate-opens-first-ever-test-drive-and-experience-center-in-chicago/" target="_blank">Slate Auto opens first ever test drive and experience center in C...</a></td><td>Electrek</td><td style="color:#E74C3C;font-weight:700">51</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">2</td><td><a href="https://electrek.co/2026/10/14/volvo-delays-ex60-ev-deliveries-us/" target="_blank">Volvo’s new midsize electric SUV is here, but it may be hard to g...</a></td><td>Electrek</td><td style="color:#E74C3C;font-weight:700">50</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">3</td><td><a href="https://cleantechnica.com/2026/10/13/the-new-bmw-ix4/" target="_blank">The New BMW iX4</a></td><td>CleanTechnica</td><td style="color:#E74C3C;font-weight:700">51</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">4</td><td><a href="https://cleantechnica.com/2026/10/13/the-new-bmw-ix3-m60-xdrive/" target="_blank">The New BMW iX3 M60 xDrive</a></td><td>CleanTechnica</td><td style="color:#E74C3C;font-weight:700">50</td><td style="color:var(--t4)">2026-10-14</td></tr></table></div><div class="sector-block"><div class="sector-hdr" style="border-left:3px solid #27AE60"><span style="font-size:18px">🔋</span><span class="sector-hdr-name">Enerji</span><span class="sector-badge" style="background:#27AE60">10</span></div><table class="stbl"><tr><th>#</th><th>Başlık</th><th>Kaynak</th><th>Skor</th><th>Tarih</th></tr><tr><td style="color:var(--t4)">1</td><td><a href="https://techcrunch.com/2026/10/14/ambrosia-energy-will-build-a-10-gwh-factory-in-texas-to-make-batteries-for-off-grid-data-centers/" target="_blank">Ambrosia Energy will build a 10 GWh factory in Texas to make batt...</a></td><td>TechCrunch</td><td style="color:#E74C3C;font-weight:700">56</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">2</td><td><a href="https://www.wired.com/story/should-you-get-permanent-outdoor-lights/" target="_blank">The Best Permanent Outdoor Lights (2026): Govee, Eufy, Cync</a></td><td>Wired</td><td style="color:#E74C3C;font-weight:700">52</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">3</td><td><a href="https://www.technologyreview.com/2026/10/14/1146452/the-download-military-fake-blood-future-batteries/" target="_blank">The Download: faking blood and the future of batteries</a></td><td>MIT Tech Review</td><td style="color:#E74C3C;font-weight:700">52</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">4</td><td><a href="https://electrek.co/2026/10/14/apple-and-schneiders-new-smart-thermostat-could-help-cut-your-electric-bill/" target="_blank">Apple and Schneider’s new smart thermostat could help cut your el...</a></td><td>Electrek</td><td style="color:#E74C3C;font-weight:700">51</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">5</td><td><a href="https://electrek.co/2026/10/14/revolution-wind-is-powering-new-england-and-trump-is-attacking-it-again/" target="_blank">Revolution Wind is powering New England, and Trump is attacking i...</a></td><td>Electrek</td><td style="color:#E74C3C;font-weight:700">51</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">6</td><td><a href="https://electrek.co/2026/10/14/prinoth-is-getting-charged-up-for-winter-with-a-little-help-from-scania/" target="_blank">Prinoth is getting charged up for winter with a little help from ...</a></td><td>Electrek</td><td style="color:#E74C3C;font-weight:700">59</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">7</td><td><a href="https://cleantechnica.com/2026/10/14/green-gsm-taxi-service-now-available-in-los-angeles/" target="_blank">Green GSM Taxi Service Now Available in Los Angeles</a></td><td>CleanTechnica</td><td style="color:#E74C3C;font-weight:700">52</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">8</td><td><a href="https://cleantechnica.com/2026/10/14/wireless-ev-charing-honda-electrification-transportation/" target="_blank">Another Sign That Gasmobiles Are Toast: Honda Adds Muscle To The ...</a></td><td>CleanTechnica</td><td style="color:#E74C3C;font-weight:700">57</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">9</td><td><a href="https://cleantechnica.com/2026/10/14/energy-storage-sunrun-distributed-us-rooftop-solar/" target="_blank">The People Speak: We Want Energy Storage, Not Data Centers</a></td><td>CleanTechnica</td><td style="color:#F39C12;font-weight:700">65</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">10</td><td><a href="https://egirisim.com/2026/10/08/kalyon-pv-yeni-gunes-teknolojileri-fabrikasini-abdde-kuruyor/" target="_blank">Kalyon PV, yeni güneş teknolojileri fabrikasını ABD’de kuruyor</a></td><td>eGirişim</td><td style="color:#E74C3C;font-weight:700">57</td><td style="color:var(--t4)">2026-10-08</td></tr></table></div><div class="sector-block"><div class="sector-hdr" style="border-left:3px solid #8E44AD"><span style="font-size:18px">📦</span><span class="sector-hdr-name">Lojistik</span><span class="sector-badge" style="background:#8E44AD">5</span></div><table class="stbl"><tr><th>#</th><th>Başlık</th><th>Kaynak</th><th>Skor</th><th>Tarih</th></tr><tr><td style="color:var(--t4)">1</td><td><a href="https://www.supplychain247.com/article/overlooked-supply-chain-ai-issues-o9-roundtable" target="_blank">Roundtable: What’s Flying Under the Radar in Supply Chain?</a></td><td>Supply Chain 247</td><td style="color:#E74C3C;font-weight:700">58</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">2</td><td><a href="https://www.supplychain247.com/article/walmart-warehouse-automation-packaging-robot-costs" target="_blank">Report: Walmart’s Shipping Boxes Are Too Tall for Its Warehouse R...</a></td><td>Supply Chain 247</td><td style="color:#E74C3C;font-weight:700">52</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">3</td><td><a href="https://www.supplychain247.com/paper/how-ready-is-your-warehouse-for-peak-season-demand" target="_blank">How Ready Is Your Warehouse for Peak Season Demand?</a></td><td>Supply Chain 247</td><td style="color:#E74C3C;font-weight:700">50</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">4</td><td><a href="https://www.supplychain247.com/paper/how-can-warehouses-scale-operations-during-peak-season" target="_blank">How Can Warehouses Scale Operations During Peak Season?</a></td><td>Supply Chain 247</td><td style="color:#E74C3C;font-weight:700">51</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">5</td><td><a href="https://www.supplychain247.com/article/us-container-imports-september-2026-record" target="_blank">China Imports Jump 21% as U.S. Sets a New September Shipping Reco...</a></td><td>Supply Chain 247</td><td style="color:#E74C3C;font-weight:700">50</td><td style="color:var(--t4)">2026-10-15</td></tr></table></div><div class="sector-block"><div class="sector-hdr" style="border-left:3px solid #2980B9"><span style="font-size:18px">❄️</span><span class="sector-hdr-name">Soğutma</span><span class="sector-badge" style="background:#2980B9">2</span></div><table class="stbl"><tr><th>#</th><th>Başlık</th><th>Kaynak</th><th>Skor</th><th>Tarih</th></tr><tr><td style="color:var(--t4)">1</td><td><a href="https://bthaber.com/haberler/en-dayanikli-oyun-laptopu-nasil-secilir-govde-mentese-ve-sogutma-olcutleri" target="_blank">En dayanıklı oyun laptopu nasıl seçilir? Gövde, menteşe ve soğutm...</a></td><td>BT Haber</td><td style="color:#E74C3C;font-weight:700">52</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">2</td><td><a href="https://www.supplychain247.com/article/dhl-six-cold-chain-air-routes-asia" target="_blank">DHL Adds Cold Chain Routes From Cincinnati to Singapore, Tokyo, a...</a></td><td>Supply Chain 247</td><td style="color:#E74C3C;font-weight:700">51</td><td style="color:var(--t4)">2026-10-15</td></tr></table></div><div class="sector-block"><div class="sector-hdr" style="border-left:3px solid #9B59B6"><span style="font-size:18px">🚀</span><span class="sector-hdr-name">Girişim</span><span class="sector-badge" style="background:#9B59B6">19</span></div><table class="stbl"><tr><th>#</th><th>Başlık</th><th>Kaynak</th><th>Skor</th><th>Tarih</th></tr><tr><td style="color:var(--t4)">1</td><td><a href="https://techcrunch.com/2026/10/14/ricursive-intelligence-is-betting-on-ai-designed-chips-to-help-solve-the-compute-crisis/" target="_blank">Ricursive Intelligence is betting on AI-designed chips to help so...</a></td><td>TechCrunch</td><td style="color:#E74C3C;font-weight:700">52</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">2</td><td><a href="https://techcrunch.com/2026/10/14/meet-the-five-companies-competing-in-the-startup-battlefield-finals-at-disrupt-2026/" target="_blank">Meet the five companies competing in the Startup Battlefield fina...</a></td><td>TechCrunch</td><td style="color:#E74C3C;font-weight:700">50</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">3</td><td><a href="https://www.technologyreview.com/2026/10/13/1146382/the-download-open-models-trade-offs-geothermal-power/" target="_blank">The Download: open model trade-offs and geothermal power’s promis...</a></td><td>MIT Tech Review</td><td style="color:#E74C3C;font-weight:700">50</td><td style="color:var(--t4)">2026-10-13</td></tr><tr><td style="color:var(--t4)">4</td><td><a href="https://thehackernews.com/2026/10/cisa-urges-immediate-ivanti-connect.html" target="_blank">CISA Urges Immediate Ivanti Connect Secure Updates as Honeypots L...</a></td><td>The Hacker News</td><td style="color:#E74C3C;font-weight:700">52</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">5</td><td><a href="https://webrazzi.com/2026/10/15/modal-15-75-milyar-dolar-degerleme-uzerinden-750-milyon-dolar-yatirim-aldi/" target="_blank">Modal, 15,75 milyar dolar değerleme üzerinden 750 milyon dolar ya...</a></td><td>Webrazzi</td><td style="color:#E74C3C;font-weight:700">51</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">6</td><td><a href="https://webrazzi.com/2026/10/14/yapay-zeka-girisimi-scuba-34-milyon-dolar-yatirim-aldi/" target="_blank">Yapay zeka girişimi Scuba, 34 milyon dolar yatırım aldı</a></td><td>Webrazzi</td><td style="color:#E74C3C;font-weight:700">51</td><td style="color:var(--t4)">2026-10-14</td></tr><tr><td style="color:var(--t4)">7</td><td><a href="https://egirisim.com/2026/10/12/ise-alim-sureclerini-ilandan-teklife-yapay-zekayla-bulusturan-girisim-hireall/" target="_blank">İşe alım süreçlerini ilandan teklife yapay zekayla buluşturan gir...</a></td><td>eGirişim</td><td style="color:#E74C3C;font-weight:700">52</td><td style="color:var(--t4)">2026-10-12</td></tr><tr><td style="color:var(--t4)">8</td><td><a href="https://egirisim.com/2026/10/12/borusan-ventures-magenticin-18-milyon-dolarlik-yatirim-turuna-katildi/" target="_blank">Borusan Ventures, Magentic’in 18 milyon dolarlık yatırım turuna k...</a></td><td>eGirişim</td><td style="color:#E74C3C;font-weight:700">53</td><td style="color:var(--t4)">2026-10-12</td></tr><tr><td style="color:var(--t4)">9</td><td><a href="https://egirisim.com/2026/10/09/claudedan-girisimcilere-45-bin-dolara-varan-destek-ucretsiz-araclar-krediler-ve-indirimler/" target="_blank">Claude’dan girişimcilere 45 bin dolara varan destek: Ücretsiz ara...</a></td><td>eGirişim</td><td style="color:#E74C3C;font-weight:700">52</td><td style="color:var(--t4)">2026-10-09</td></tr><tr><td style="color:var(--t4)">10</td><td><a href="https://egirisim.com/2026/10/09/egaranti-seri-a-oncesi-turda-1-1-milyon-dolar-yatirim-aldi/" target="_blank">egaranti, Seri A öncesi turda 1.1 milyon dolar yatırım aldı</a></td><td>eGirişim</td><td style="color:#E74C3C;font-weight:700">55</td><td style="color:var(--t4)">2026-10-09</td></tr><tr><td style="color:var(--t4)">11</td><td><a href="https://bthaber.com/haberler/siber-guvenlikte-teknik-uzmanligi-odagina-aliyor" target="_blank">Siber güvenlikte teknik uzmanlığı odağına alıyor</a></td><td>BT Haber</td><td style="color:#E74C3C;font-weight:700">54</td><td style="color:var(--t4)">2026-10-15</td></tr><tr><td style="color:var(--t4)">12</td><td><a href="https://bthaber.com/haberler/yapay-zeka-odakli-satin-alma-adimi" target="_blank">Yapay zeka odaklı satın alma adımı</a></td><td>BT Haber</td><td style="color:#E74C3C;font-weight:700">53</td><td style="color:var(--t4)">2026-10-15</td></tr></table></div></div>
+      <div id="pane-security" class="hidden">
+        <div class="sec-card" style="border-left-color:#8E44AD">
+          
+          <a class="sec-title" href="https://arstechnica.com/security/2026/10/fridge-hack-costing-millions-and-sparking-fires-stemmed-from-poor-security/" target="_blank">Fridge hack costing millions and sparking fires stemmed from poor security</a>
+          <div class="sec-meta">Ars Technica · 2026-10-14</div>
+        </div>
+        <div class="sec-card" style="border-left-color:#8E44AD">
+          
+          <a class="sec-title" href="https://thehackernews.com/2026/10/drupal-patches-critical-core-rce-flaw.html" target="_blank">Drupal Patches Critical Core RCE Flaw with No-Login Path via Contributed Modules</a>
+          <div class="sec-meta">The Hacker News · 2026-10-15</div>
+        </div>
+        <div class="sec-card" style="border-left-color:#8E44AD">
+          
+          <a class="sec-title" href="https://thehackernews.com/2026/10/fake-ai-attacks-spread-across-us.html" target="_blank">Fake AI Attacks Spread Across US Companies: How MSSPs Can Stop Incidents Early</a>
+          <div class="sec-meta">The Hacker News · 2026-10-15</div>
+        </div>
+        <div class="sec-card" style="border-left-color:#E74C3C">
+          <span class="cve-tag">CVE-2026-0322</span>
+          <a class="sec-title" href="https://thehackernews.com/2026/10/palo-alto-networks-patches-pan-os.html" target="_blank">Palo Alto Networks Patches PAN-OS Authenticated RCE Flaw Amid Active Exploitation</a>
+          <div class="sec-meta">The Hacker News · 2026-10-15</div>
+        </div>
+        <div class="sec-card" style="border-left-color:#8E44AD">
+          
+          <a class="sec-title" href="https://thehackernews.com/2026/10/why-ai-confidence-is-not-validation.html" target="_blank">Why AI Confidence Is Not Validation</a>
+          <div class="sec-meta">The Hacker News · 2026-10-15</div>
+        </div>
+        <div class="sec-card" style="border-left-color:#8E44AD">
+          
+          <a class="sec-title" href="https://thehackernews.com/2026/10/india-mandates-registered-caller-name.html" target="_blank">India Mandates Registered Caller Name Display on 4G and Newer Networks From November 1</a>
+          <div class="sec-meta">The Hacker News · 2026-10-15</div>
+        </div>
+        <div class="sec-card" style="border-left-color:#8E44AD">
+          
+          <a class="sec-title" href="https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html" target="_blank">GhostAction Compromises About 1,900 GitHub Accounts, Targets Over 30,000 Repositories</a>
+          <div class="sec-meta">The Hacker News · 2026-10-15</div>
+        </div>
+        <div class="sec-card" style="border-left-color:#E74C3C">
+          <span class="cve-tag">CVE-2026-105740</span>
+          <a class="sec-title" href="https://thehackernews.com/2026/10/langflows-critical-authenticated-rce.html" target="_blank">Langflow's Critical Authenticated RCE Flaw Targeted in 1,423 Honeypot Exploit Attempts</a>
+          <div class="sec-meta">The Hacker News · 2026-10-15</div>
+        </div>
+        <div class="sec-card" style="border-left-color:#E74C3C">
+          <span class="cve-tag">CVE-2026-105133,CVE-2026-105134</span>
+          <a class="sec-title" href="https://thehackernews.com/2026/10/ahsaycbs-flaws-exploited-to-deploy-web.html" target="_blank">AhsayCBS Flaws Exploited to Deploy Web Shells Get New Fixes After Incomplete Patches</a>
+          <div class="sec-meta">The Hacker News · 2026-10-15</div>
+        </div>
+        <div class="sec-card" style="border-left-color:#8E44AD">
+          
+          <a class="sec-title" href="https://thehackernews.com/2026/10/cisco-warns-of-active-attacks.html" target="_blank">Cisco Warns of Active Attacks Exploiting New Critical Secure Email Gateway Vulnerability</a>
+          <div class="sec-meta">The Hacker News · 2026-10-15</div>
+        </div></div>
+      <div id="pane-outside" class="hidden"><div style="background:var(--s1);border:1px solid var(--b1);border-radius:3px;overflow:hidden"><div class="um-row"><a href="https://techcrunch.com/2026/10/14/electric-vehicle-sales-in-the-u-s-are-showing-signs-of-life/" target="_blank" class="um-title">Electric vehicle sales in the US are showing signs of life</a><span class="um-src">TechCrunch</span></div>
+<div class="um-row"><a href="https://www.technologyreview.com/2026/10/14/1145807/us-military-race-to-make-fake-blood/" target="_blank" class="um-title">The US military’s race to make fake blood</a><span class="um-src">MIT Tech Review</span></div>
+<div class="um-row"><a href="https://www.supplychain247.com/paper/how-should-growing-warehouses-choose-a-wms-that-scales" target="_blank" class="um-title">How Should Growing Warehouses Choose a WMS That Scales?</a><span class="um-src">Supply Chain 247</span></div>
+<div class="um-row"><a href="https://www.securityweek.com/ai-agents-navigate-unfamiliar-ot-systems-and-move-equipment-in-minutes-booz-allen-finds/" target="_blank" class="um-title">AI Agents Navigate Unfamiliar OT Systems and Move Equipment in Minutes, Booz Allen Finds</a><span class="um-src">SecurityWeek</span></div>
+<div class="um-row"><a href="https://www.technologyreview.com/2026/10/13/1146366/open-models-have-real-benefits-do-they-outweigh-the-risks/" target="_blank" class="um-title">Open models have real benefits. Do they outweigh the risks?</a><span class="um-src">MIT Tech Review</span></div>
+<div class="um-row"><a href="https://thehackernews.com/2026/10/langflows-critical-authenticated-rce.html" target="_blank" class="um-title">Langflow's Critical Authenticated RCE Flaw Targeted in 1,423 Honeypot Exploit Attempts</a><span class="um-src">The Hacker News</span></div>
+<div class="um-row"><a href="https://electrek.co/2026/10/13/electric-cars-saved-20b-in-oil-and-the-us-is-falling-behind/" target="_blank" class="um-title">Electric cars saved $20B in oil – and the US is falling behind</a><span class="um-src">Electrek</span></div>
+<div class="um-row"><a href="https://www.securityweek.com/ics-patch-tuesday-siemens-issues-17-advisories-rockwell-fixes-armorblock-takeover-flaw/" target="_blank" class="um-title">ICS Patch Tuesday: Siemens Issues 17 Advisories, Rockwell Fixes ArmorBlock Takeover Flaw</a><span class="um-src">SecurityWeek</span></div>
+<div class="um-row"><a href="https://bthaber.com/haberler/dijital-teknolojiler-ve-yapay-zeka-becerileri-gelisiyor" target="_blank" class="um-title">Dijital teknolojiler ve yapay zeka becerileri gelişiyor</a><span class="um-src">BT Haber</span></div>
+<div class="um-row"><a href="https://www.bleepingcomputer.com/news/security/cisa-warns-admins-to-immediately-fix-ivanti-flaw-exploited-as-zero-day/" target="_blank" class="um-title">CISA warns admins to immediately fix Ivanti flaw exploited as zero-day</a><span class="um-src">BleepingComputer</span></div>
+<div class="um-row"><a href="https://electrek.co/2026/10/14/tesla-powerwall-sunrun-record-745-mw-california-grid-dispatch/" target="_blank" class="um-title">Tesla Powerwalls supply most of record 745 MW California grid dispatch</a><span class="um-src">Electrek</span></div>
+<div class="um-row"><a href="https://electrek.co/2026/10/13/bmw-i3-nearly-80-less-a-month-to-lease-than-new-ix3/" target="_blank" class="um-title">The BMW i3 is nearly $80 less a month to lease than the new iX3, but it’s the same price</a><span class="um-src">Electrek</span></div>
+<div class="um-row"><a href="https://bthaber.com/haberler/ey-yilin-girisimcisi-programi-eoy-basvurulari-acildi" target="_blank" class="um-title">EY Yılın Girişimcisi Programı (EOY) başvuruları açıldı</a><span class="um-src">BT Haber</span></div>
+<div class="um-row"><a href="https://cleantechnica.com/2026/10/14/trump-administration-wants-to-stop-an-almost-complete-offshore-wind-project/" target="_blank" class="um-title">Trump Administration Wants to Stop an Almost-Complete Offshore Wind Project</a><span class="um-src">CleanTechnica</span></div>
+<div class="um-row"><a href="https://arstechnica.com/space/2026/10/nasas-embattled-venus-missions-are-back-on-track-after-cancellation-threat/" target="_blank" class="um-title">Things are finally looking up for NASA's first missions to Venus in a generation</a><span class="um-src">Ars Technica</span></div>
+<div class="um-row"><a href="https://electrek.co/2026/10/14/ford-opens-preorder-invites-30000-fathom-ev-pickup/" target="_blank" class="um-title">Ford opens preorder invites for the $30,000 Fathom EV pickup</a><span class="um-src">Electrek</span></div>
+<div class="um-row"><a href="https://thehackernews.com/2026/10/why-ai-confidence-is-not-validation.html" target="_blank" class="um-title">Why AI Confidence Is Not Validation</a><span class="um-src">The Hacker News</span></div>
+<div class="um-row"><a href="https://webrazzi.com/2026/10/13/yeni-nesil-apple-tv-4knin-ozellikleri/" target="_blank" class="um-title">Yeni nesil Apple TV 4K'nın fiyatı ve özellikleri</a><span class="um-src">Webrazzi</span></div>
+<div class="um-row"><a href="https://thehackernews.com/2026/10/palo-alto-networks-patches-pan-os.html" target="_blank" class="um-title">Palo Alto Networks Patches PAN-OS Authenticated RCE Flaw Amid Active Exploitation</a><span class="um-src">The Hacker News</span></div>
+<div class="um-row"><a href="https://www.technologyreview.com/2026/10/15/1146577/nuclear-power-upgrade/" target="_blank" class="um-title">How much more can nuclear power plants give?</a><span class="um-src">MIT Tech Review</span></div>
+<div class="um-row"><a href="https://thehackernews.com/2026/10/cisco-warns-of-active-attacks.html" target="_blank" class="um-title">Cisco Warns of Active Attacks Exploiting New Critical Secure Email Gateway Vulnerability</a><span class="um-src">The Hacker News</span></div>
+<div class="um-row"><a href="https://www.supplychain247.com/article/port-los-angeles-september-cargo-record" target="_blank" class="um-title">Port of Los Angeles Posts Busiest Month in Its 118-Year History</a><span class="um-src">Supply Chain 247</span></div>
+<div class="um-row"><a href="https://bthaber.com/haberler/kurumsal-yapay-zeka-odakli-bulusma" target="_blank" class="um-title">Kurumsal yapay zekâ odaklı buluşma</a><span class="um-src">BT Haber</span></div>
+<div class="um-row"><a href="https://arstechnica.com/gadgets/2026/10/the-internets-undersea-backbone-is-slipping-into-to-the-danger-zone/" target="_blank" class="um-title">The Internet’s undersea backbone is slipping into the danger zone</a><span class="um-src">Ars Technica</span></div>
+<div class="um-row"><a href="https://electrek.co/2026/10/15/tesla-cybercab-assembly-lead-leaves-rivian-r2/" target="_blank" class="um-title">Tesla loses Cybercab assembly lead to Rivian R2 weeks after launch</a><span class="um-src">Electrek</span></div></div></div>
+    </div>
+    <div class="sidebar">
+      <div class="side-box">
+        <div class="side-head">SEKTÖR FİLTRESİ <span class="clear-btn" onclick="clearSectors()">temizle</span></div>
+        <div class="side-body"><div class="filt-pill" onclick="toggleSector('Otomotiv')" id="spill-Otomotiv"><div><span class="pill-sector-name">🚗 Otomotiv</span><span class="pill-companies">(Maxion İnci, Maxion Jantaş)</span></div><span class="filt-cnt">4</span></div><div class="filt-pill" onclick="toggleSector('Enerji')" id="spill-Enerji"><div><span class="pill-sector-name">🔋 Enerji</span><span class="pill-companies">(İnci GS Yuasa, Vflow Tech, İncitaş)</span></div><span class="filt-cnt">10</span></div><div class="filt-pill" onclick="toggleSector('Lojistik')" id="spill-Lojistik"><div><span class="pill-sector-name">📦 Lojistik</span><span class="pill-companies">(Yusen İnci Lojistik)</span></div><span class="filt-cnt">5</span></div><div class="filt-pill" onclick="toggleSector('Soğutma')" id="spill-Soğutma"><div><span class="pill-sector-name">❄️ Soğutma</span><span class="pill-companies">(ISM Minibar, Starcool)</span></div><span class="filt-cnt">2</span></div><div class="filt-pill" onclick="toggleSector('Girişim')" id="spill-Girişim"><div><span class="pill-sector-name">🚀 Girişim</span><span class="pill-companies">(Vinci B.V., İnci Holding (Genel))</span></div><span class="filt-cnt">19</span></div></div>
+      </div>
+      <div class="side-box">
+        <div class="side-head">SEKTÖR DAĞILIMI</div>
+        <div class="chart-box donut-wrap">
+          <svg viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg" class="donut-svg">
+            <circle cx="70" cy="70" r="52" fill="none" stroke="#1E1E1E" stroke-width="16"/>
+            <circle cx="70" cy="70" r="52" fill="none" stroke="#C0392B" stroke-width="16" stroke-dasharray="32.67 294.06" transform="rotate(-90.0 70 70)" opacity="0.9"/><circle cx="70" cy="70" r="52" fill="none" stroke="#27AE60" stroke-width="16" stroke-dasharray="81.68 245.05" transform="rotate(-54.0 70 70)" opacity="0.9"/><circle cx="70" cy="70" r="52" fill="none" stroke="#8E44AD" stroke-width="16" stroke-dasharray="40.84 285.89" transform="rotate(36.0 70 70)" opacity="0.9"/><circle cx="70" cy="70" r="52" fill="none" stroke="#2980B9" stroke-width="16" stroke-dasharray="16.34 310.39" transform="rotate(81.0 70 70)" opacity="0.9"/><circle cx="70" cy="70" r="52" fill="none" stroke="#9B59B6" stroke-width="16" stroke-dasharray="155.19 171.54" transform="rotate(99.0 70 70)" opacity="0.9"/>
+            <text x="70" y="66" text-anchor="middle" fill="#EDE5DA" font-family="Outfit,sans-serif" font-size="18" font-weight="300">40</text>
+            <text x="70" y="80" text-anchor="middle" fill="#5C534C" font-family="Outfit,sans-serif" font-size="9">haber</text>
+          </svg>
+          <div class="donut-legend"><div class="donut-leg-row"><span class="donut-leg-dot" style="background:#C0392B"></span><span class="donut-leg-name">🚗 Otomotiv</span><span class="donut-leg-pct">10%</span></div><div class="donut-leg-row"><span class="donut-leg-dot" style="background:#27AE60"></span><span class="donut-leg-name">🔋 Enerji</span><span class="donut-leg-pct">25%</span></div><div class="donut-leg-row"><span class="donut-leg-dot" style="background:#8E44AD"></span><span class="donut-leg-name">📦 Lojistik</span><span class="donut-leg-pct">12%</span></div><div class="donut-leg-row"><span class="donut-leg-dot" style="background:#2980B9"></span><span class="donut-leg-name">❄️ Soğutma</span><span class="donut-leg-pct">5%</span></div><div class="donut-leg-row"><span class="donut-leg-dot" style="background:#9B59B6"></span><span class="donut-leg-name">🚀 Girişim</span><span class="donut-leg-pct">48%</span></div></div>
+        </div>
+      </div>
+      <div class="side-box">
+        <div class="side-head">ÖNCÜ TERİMLER</div>
+        <div class="chart-box">
+            <div class="kw-row">
+              <span class="kw-label">battery</span>
+              <div class="kw-track"><div class="kw-fill" style="width:100%"></div></div>
+              <span class="kw-cnt">1</span>
+            </div>
+            <div class="kw-row">
+              <span class="kw-label">ev charging</span>
+              <div class="kw-track"><div class="kw-fill" style="width:100%"></div></div>
+              <span class="kw-cnt">1</span>
+            </div>
+            <div class="kw-row">
+              <span class="kw-label">solar</span>
+              <div class="kw-track"><div class="kw-fill" style="width:100%"></div></div>
+              <span class="kw-cnt">1</span>
+            </div>
+            <div class="kw-row">
+              <span class="kw-label">kurumsal girişim</span>
+              <div class="kw-track"><div class="kw-fill" style="width:100%"></div></div>
+              <span class="kw-cnt">1</span>
+            </div>
+            <div class="kw-row">
+              <span class="kw-label">supply chain</span>
+              <div class="kw-track"><div class="kw-fill" style="width:100%"></div></div>
+              <span class="kw-cnt">1</span>
+            </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <div class="footer-l">İnci Holding © 2026 · AI Destekli Stratejik Bülten · Hafta 42</div>
+  <div class="footer-r" style="color:var(--t4);font-size:10px">Otomatik üretildi · 15.10.2026 13:52 · 21 kaynak</div>
+</div>
+<script>
+let activeSectors = new Set();
+let currentTab    = 'bulletin';
+function eid(id){ return document.getElementById(id); }
+function qsa(sel){ return document.querySelectorAll(sel); }
+function switchTab(tab, btn) {
+  currentTab = tab;
+  qsa('.tbtn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  ['bulletin','sectors','security','outside'].forEach(p => {
+    eid('pane-'+p).classList.toggle('hidden', p !== tab);
+  });
+  eid('mainControls').style.display = tab === 'bulletin' ? 'flex' : 'none';
+  if (tab === 'bulletin') applyFilters();
+}
+function applyFilters() {
+  const q    = (eid('searchBox').value || '').toLowerCase();
+  const sort = eid('sortSel').value;
+  let cards  = Array.from(qsa('.card'));
+  let visible = 0;
+  cards.forEach(card => {
+    const cardSectors = (card.dataset.sectors || card.dataset.sector || '').split(',').filter(Boolean);
+    const sectorOk = activeSectors.size === 0 || cardSectors.some(s => activeSectors.has(s));
+    const ok = sectorOk && (!q || card.textContent.toLowerCase().includes(q));
+    card.classList.toggle('hidden', !ok);
+    if (ok) visible++;
+  });
+  eid('countPill').textContent = visible + ' haber';
+  const container = eid('cards-container');
+  const visCards  = cards.filter(c => !c.classList.contains('hidden'));
+  visCards.sort((a, b) => {
+    if (sort === 'score')  return parseFloat(b.dataset.score)  - parseFloat(a.dataset.score);
+    if (sort === 'date')   return (b.dataset.date  || '').localeCompare(a.dataset.date  || '');
+    if (sort === 'source') return (a.dataset.src   || '').localeCompare(b.dataset.src   || '');
+    return 0;
+  });
+  visCards.forEach(c => container.appendChild(c));
+}
+function toggleSector(s) {
+  const el = eid('spill-' + s);
+  if (activeSectors.has(s)) { activeSectors.delete(s); el.classList.remove('on'); }
+  else { activeSectors.add(s); el.classList.add('on'); }
+  applyFilters();
+}
+function clearSectors() {
+  activeSectors.clear();
+  qsa('.filt-pill').forEach(p => p.classList.remove('on'));
+  applyFilters();
+}
+applyFilters();
+</script>
+</body>
+</html>
